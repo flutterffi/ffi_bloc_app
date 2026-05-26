@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../ble/ble_repository.dart';
+import '../../ble/ble_repository.dart';
+import '../../ble/models/ble_device_item.dart';
+import '../state/connection_state.dart';
 import 'connection_event.dart';
-import 'connection_state.dart';
 
+/// Event-driven connection controller (Bloc pattern).
 class ConnectionBloc extends Bloc<ConnectionEvent, BleConnectionState> {
   ConnectionBloc(this._repository) : super(const BleConnectionState()) {
     on<ConnectionConnectRequested>(_onConnect);
@@ -23,7 +25,7 @@ class ConnectionBloc extends Bloc<ConnectionEvent, BleConnectionState> {
   }
 
   final BleRepository _repository;
-  StreamSubscription<dynamic>? _connectedSub;
+  StreamSubscription<BleDeviceItem?>? _connectedSub;
 
   Future<void> _onConnect(
     ConnectionConnectRequested event,

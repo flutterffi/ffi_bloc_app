@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../ble/models/ble_device_item.dart';
+import '../../ble/models/ble_device_item.dart';
 
 enum BleConnectionStatus { idle, connecting, connected, failure }
 

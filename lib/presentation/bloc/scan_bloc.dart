@@ -2,11 +2,12 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../ble/ble_repository.dart';
-import '../ble/models/ble_device_item.dart';
+import '../../ble/ble_repository.dart';
+import '../../ble/models/ble_device_item.dart';
+import '../state/scan_state.dart';
 import 'scan_event.dart';
-import 'scan_state.dart';
 
+/// Event-driven scan controller (Bloc pattern).
 class ScanBloc extends Bloc<ScanEvent, ScanState> {
   ScanBloc(this._repository) : super(const ScanState()) {
     on<ScanStarted>(_onStarted);

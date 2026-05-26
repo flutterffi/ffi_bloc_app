@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import '../ble/models/ble_device_item.dart';
+import '../../ble/models/ble_device_item.dart';
 
 sealed class ConnectionEvent extends Equatable {
   const ConnectionEvent();

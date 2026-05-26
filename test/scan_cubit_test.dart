@@ -4,8 +4,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:ffi_bloc_app/ble/ble_repository.dart';
 import 'package:ffi_bloc_app/ble/models/ble_device_item.dart';
-import 'package:ffi_bloc_app/presentation/bloc/scan_bloc.dart';
-import 'package:ffi_bloc_app/presentation/bloc/scan_event.dart';
+import 'package:ffi_bloc_app/presentation/cubit/scan_cubit.dart';
 import 'package:ffi_bloc_app/presentation/state/scan_state.dart';
 
 class _FakeBleRepository implements BleRepository {
@@ -48,14 +47,14 @@ void main() {
 
   setUp(() => repository = _FakeBleRepository());
 
-  blocTest<ScanBloc, ScanState>(
-    'emits scanning then devices when ScanStarted',
-    build: () => ScanBloc(repository),
-    act: (bloc) => bloc.add(const ScanStarted()),
+  blocTest<ScanCubit, ScanState>(
+    'emits scanning then devices when startScan',
+    build: () => ScanCubit(repository),
+    act: (cubit) => cubit.startScan(),
     wait: const Duration(milliseconds: 50),
     expect: () => [
-      isA<ScanState>().having((s) => s.status, 'status', ScanStatus.scanning),
       isA<ScanState>()
+          .having((s) => s.status, 'status', ScanStatus.scanning)
           .having((s) => s.devices.length, 'devices', 1)
           .having((s) => s.devices.first.name, 'name', 'Demo'),
     ],
